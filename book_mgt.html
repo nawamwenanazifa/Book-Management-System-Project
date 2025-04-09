@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="book_mgt.css">
+</head>
+<body>
+    <div class="container-fluid pt-2">
+        <!--Header-->
+        <div class="display-5 text-center mt-4 mb-4"><b>Book Manager</b> <img src="./images/book-stack.png" class="rounded-circle float-end" alt="book-stack"></div>
+
+        <!--Search bar-->
+        <div class="input-group">
+            <input type="text" id="searchBar" class="form-control mb-4" placeholder="Search for books by Author or title." aria-label="Search">
+        </div>
+
+        <!--Navigation tabs-->
+        <ul class="nav nav-tabs sidebar">
+
+            <li class="nav-item" onclick=hideSidebar()>
+              <a class="nav-link"  href="#close"><img src="./images/close_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" ></a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" data-bs-toggle="tab" href="#all-books">All books</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="tab" href="#favorites">Favorites</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="tab" href="#unread">Unread</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="tab" href="#read">Read</a>
+            </li>
+
+        </ul>
+
+
+        <ul class="nav nav-tabs">
+
+            <li class="nav-item menu-button" onclick=showSidebar()>
+                <a class="nav-link" href="#side"><img src="./images/menu_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" style="height: 20;"></a>
+            </li>
+
+            <li class="nav-item hideOnMobile">
+              <a class="nav-link active" data-bs-toggle="tab" href="#all-books">All books</a>
+            </li>
+
+            <li class="nav-item hideOnMobile">
+              <a class="nav-link" data-bs-toggle="tab" href="#favorites">Favorites</a>
+            </li>
+
+            <li class="nav-item hideOnMobile">
+              <a class="nav-link" data-bs-toggle="tab" href="#unread">Unread</a>
+            </li>
+
+            <li class="nav-item hideOnMobile">
+              <a class="nav-link" data-bs-toggle="tab" href="#read">Read</a>
+            </li>
+
+        </ul>
+          
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane container active" id="all-books">
+                <div class="row" id="all-booksGrid">
+                    <h4>All books</h4>
+                </div>
+            </div>
+
+            <div class="tab-pane container fade" id="favorites">
+                <div class="row" id="favoritesGrid">
+                    <h4>Favorites</h4>
+                </div>
+            </div>
+
+            <div class="tab-pane container fade" id="unread">
+                <div class="row" id="unreadGrid">
+                    <h4>Unread</h4>
+                </div>
+            </div>
+            
+            <div class="tab-pane container fade" id="read">
+                <div class="row" id="readGrid">
+                    <h4>Read</h4>
+                </div>
+            </div>
+        </div>
+        
+        <!--Button to open add book modal-->
+        <button type="button" class="btn btn-primary" id="add-book" data-bs-toggle="modal" data-bs-target="#bookModal">Add book</button>
+
+        <!--Modal for adding or editing book-->
+        <div class="modal fade" id="bookModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">  
+            <div class="modal-dialog"> 
+
+                <div class="modal-content"> 
+
+                    <div class="modal-header">  
+                        <h5 class="modal-title" id="modalLabel">Add New Book</h5>  
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>  
+                    </div>  
+
+                    <div class="modal-body"> 
+
+                        <form id="bookForm">  
+                            <input type="hidden" id="bookId"/> 
+
+                            <div class="mb-3">  
+                                <label for="bookTitle" class="form-label">Title</label>  
+                                <input type="text" class="form-control" id="bookTitle" required>  
+                            </div>  
+                            
+                            <div class="mb-3">  
+                                <label for="bookAuthor" class="form-label">Author</label>  
+                                <input type="text" class="form-control" id="bookAuthor" required>  
+                            </div>  
+
+                            <div class="mb-3">  
+                                <label for="bookGenre" class="form-label">Genre</label>  
+                                <input type="text" class="form-control" id="bookGenre" required>  
+                            </div> 
+
+                            <div class="mb-3">  
+                                <label for="bookStatus" class="form-label">Status</label>  
+                                <select class="form-select" id="bookStatus" required>  
+                                    <option value="Unread">Unread</option>  
+                                    <option value="Read">Read</option>  
+                                </select>  
+                            </div>  
+
+                            <div class="mb-3">  
+                                <label for="bookImage" class="form-label">Cover Image</label>  
+                                <input type="file" class="form-control" id="bookImage" accept="image/*">  
+                            </div>  
+                        </form>  
+
+                    </div>  
+
+                    <div class="modal-footer">  
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>  
+                        <button type="button" class="btn btn-primary" id="saveBook" >Save</button>  
+                    </div>  
+
+                </div>  
+
+            </div>  
+        </div>  
+
+    </div>
+
+
+    <!--Scripts-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="book_mgt.js"></script>
+</body>
+</html>
